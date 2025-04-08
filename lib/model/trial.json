@@ -1,0 +1,34 @@
+{
+  "initiatedAt": "28 March 2025 at 00:00:00 UTC+5:30",
+  "initiatedBy": "6698oiu8ho8g8oi0ybr7iuk4yp8tok2lcGuAM2",
+  "lastMessage":{
+    "imageMessage": "imageUrl",
+    "message": "Hello",
+    "msgType": "reply",
+    "replyTo": "uid-w45e87 978967",
+    "senderId": "uID1",
+    "status": "pending",
+    "timestamp": "28 March 2025 at 10:05:19 UTC+5:30",
+    "type": "image"
+  },
+
+  "lastUpdatedAt": "28 March 2025 at 10:06:13 UTC+5:30",
+  "participantIds": [
+    "uID1",
+    "uId2"
+  ],
+  "participants" : [
+    {
+      "last_online/seen": "28 March 2025 at 10:10:25 UTC+5:30",
+      "profile_image": "imageUrl",
+      "uid" : "uID1",
+      "username" : "Harry Potter"
+    },
+    {
+      "last_online/seen": "28 March 2025 at 10:10:25 UTC+5:30",
+      "profile_image": "imageUrl",
+      "uid" : "uID2",
+      "username" : "Ron"
+    }
+  ]
+}
