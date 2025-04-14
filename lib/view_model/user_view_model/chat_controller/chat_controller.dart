@@ -153,6 +153,7 @@ class ChatViewModel extends GetxController {
       status: Status.read,
     );
 
+    // To add Chat in Firebase FireStore
     // String imageUrls = await StorageServices().uploadChatImages(messageImage);
     //
     // ChatModel chats = ChatModel(

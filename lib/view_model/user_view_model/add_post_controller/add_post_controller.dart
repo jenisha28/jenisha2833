@@ -18,6 +18,7 @@ import 'package:social_media_app/view_model/user_view_model/dashboard_controller
 
 class AddPostController extends GetxController {
   final _postRepository = PostRepository();
+  final _storyRepository = StoryRepository();
 
   final story = Get.find<DashboardController>().story;
   final posts = Get.find<DashboardController>().posts;
@@ -90,6 +91,7 @@ class AddPostController extends GetxController {
     return story[storyIndex];
   }
 
+  // to add in dummy data
   Future<void> sendStory() async {
     try {
       if (textPostController.text.isNotEmpty || selectedFile.isNotEmpty) {
@@ -143,54 +145,30 @@ class AddPostController extends GetxController {
     }
   }
 
+  // to add in Firebase Firestore
   Future<void> addStory() async {
     try {
       if (textPostController.text.isNotEmpty || selectedFile.isNotEmpty) {
         isSending.value = true;
 
         List<String> imageUrl =
-            await StorageServices().uploadPostImages(selectedFile);
+        await StorageServices().uploadPostImages(selectedFile);
 
-          if (textPostController.text.isNotEmpty) {
-            StoriesModel storiesModel = StoriesModel(
-              storyId: (DummyData.storiesDetails['3'] != null ? DummyData.storiesDetails['3']!.length : 0 + 1).toString(),
-              storyText: textPostController.text,
-              storyTime: DateTime.now().toString(),
-              viewers: 0,
-              storyLikes: 0,
-            );
-            if (DummyData.storiesDetails['3'] != null) {
-              DummyData.storiesDetails['3']!.insert(0, storiesModel);
-            } else {
-              DummyData.storiesDetails['3'] = [];
-              DummyData.storiesDetails['3']!.insert(0, storiesModel);
-            }
-          }
-          if (imageUrl.isNotEmpty) {
-            for (var i in imageUrl) {
-              StoriesModel storiesModel = StoriesModel(
-                storyId: (DummyData.storiesDetails['3'] != null ? DummyData.storiesDetails['3']!.length : 0 + 1).toString(),
-                storyImg: i,
-                storyTime: DateTime.now().toString(),
-                viewers: 0,
-                storyLikes: 0,
-              );
-              if (DummyData.storiesDetails['3'] != null) {
-                DummyData.storiesDetails['3']!.insert(0, storiesModel);
-              } else {
-                DummyData.storiesDetails['3'] = [];
-                DummyData.storiesDetails['3']!.insert(0, storiesModel);
-              }
-            }
-          }
-          Utils.toastMessage("Story added Successfully");
+        StoryModel storyModel = StoryModel(
+          uid: "3",
+          storyText: [textPostController.text],
+          storyTime: DateTime.now().toString(),
+          storyImg: imageUrl,
+          storyId: {posts.length + 1}.toString(),
+          storyLikes: 0,
+        );
 
-
+        await _storyRepository.addStory(storyModel);
+        Utils.toastMessage("Post added Successfully");
         selectedFile.clear();
         textPostController.clear();
         isSending.value = false;
       }
-      isSending.value = false;
     } on Exception catch (error) {
       print(error);
       isSending.value = false;
